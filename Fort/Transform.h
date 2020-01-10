@@ -16,6 +16,7 @@ public:
 	vec3 getRotation();
 
 	void setScale(float x, float y, float z);
+	void setScale(float size);
 	void setScale(vec3 newscale);
 
 	void setPosition(float x, float y, float z);

@@ -23,7 +23,7 @@ GLfloat light_diffuse[] = { 1.0, 0.0, 0.0, 1.0 };  /* Red diffuse light. */
 GLfloat light1_diffuse[] = { 0.0, 0.50, 1.0, 1.0 };  /* Red diffuse light. */
 
 GLfloat light_position[] = { 3.0, 3.0, 3.0, 1.0 };  /* Infinite light location. */
-GLfloat light1_position[] = { -3.0, 3.0, -3.0, 1.0 };  /* Infinite light location. */
+GLfloat light1_position[] = { 3.0, 3.0, 3.0, 1.0 };  /* Infinite light location. */
 
 //CAMERA
 bool cameraR = false; //Camera Rotation
@@ -41,8 +41,8 @@ void initScenes()
 	ms->initialize();
 	menu->initialize();
 
-	//currentScene = menu;
-	currentScene = ms;
+	currentScene = menu;
+	//currentScene = ms;
 
 //	cube->initialize(verts, vertexNormals, faces);
 }
@@ -55,8 +55,8 @@ void init()
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
 	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 
-	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
-	glLightfv(GL_LIGHT0, GL_POSITION, light1_position);
+	glLightfv(GL_LIGHT1, GL_DIFFUSE, light_diffuse);
+	glLightfv(GL_LIGHT1, GL_POSITION, light1_position);
 
 	glEnable(GL_LIGHT0);
 	glEnable(GL_LIGHT1);

@@ -58,4 +58,9 @@ void Transform::setScale(vec3 newscale)
 	scale = newscale;
 }
 
-
+void Transform::setScale(float size)
+{
+	scale.x = size;
+	scale.y = size;
+	scale.z = size;
+}

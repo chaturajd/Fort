@@ -55,6 +55,12 @@ Model* ModelLoader::loadModel(std::string path)
 				}
 				else if (parsed == "vn")
 				{
+					if (parsed == "")
+					{
+						model->normals.push_back(-1);
+						continue;
+					}
+
 					while (std::getline(inputLine, parsed, ' '))
 					{
 						model->normals.push_back(std::stof(parsed));
@@ -63,6 +69,12 @@ Model* ModelLoader::loadModel(std::string path)
 
 				else if (parsed == "vt")
 				{
+					if (parsed == "")
+					{
+						model->texture.push_back(-1);
+						continue;
+					}
+
 					while (std::getline(inputLine, parsed, ' '))
 					{
 						//Populate the texture coordinate array
@@ -74,7 +86,7 @@ Model* ModelLoader::loadModel(std::string path)
 	}
 	else
 	{
-		std::cout << "Erroe Loading File";
+		std::cout << "Error Loading File";
 	}
 	return model;
 }

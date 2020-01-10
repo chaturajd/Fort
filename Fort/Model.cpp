@@ -1,5 +1,6 @@
 #include "Model.h"
 
+//Initializes an object using custom arrays of data
 void Model::initialize(std::vector<float> vertices, std::vector<float> normals, std::vector<std::vector<std::vector<int>>> faces)
 {
 	Model::vertices = vertices;
@@ -7,30 +8,22 @@ void Model::initialize(std::vector<float> vertices, std::vector<float> normals, 
 	Model::faces = faces;
 
 	//loadTexture("F:\\Untitled.png");
-
-
 	genarateList();
 }
 
+//Prints object's data counts
 void Model::printDetails()
 {
 	std::cout << "List ID: " << listId << std::endl;
 	std::cout << "Vertices Count: " << vertices.size()<<std::endl;
 	std::cout << "faces Count: " << faces.size() << std::endl;
 	std::cout << "Normals Count: " << normals.size() << std::endl;
-
 }
 
+//Compiles a display list for rendering
 void Model::genarateList()
 {
 	glNewList(listId, GL_COMPILE);
-		draw(GL_QUADS);
-	glEndList();
-}
-
-void Model::render()
-{
-	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
 	glScalef(transform.getScale().x, transform.getScale().y, transform.getScale().z);
 	glRotated(transform.getRotation().x, 1.0f, 0.0f, 0.0f);
@@ -38,9 +31,9 @@ void Model::render()
 	glRotated(transform.getRotation().z, 0.0f, 0.0f, 1.0f);
 	glTranslatef(transform.getPosition().x, transform.getPosition().y, transform.getPosition().z);
 
-	glBegin(GL_QUADS);
 	for (auto& face : faces)
 	{
+		glBegin(GL_POLYGON);
 		for (auto& vertex : face)
 		{
 			//Vertex
@@ -59,53 +52,75 @@ void Model::render()
 			float vnY = normals[vn2];
 			float vnZ = normals[vn3];
 
-			int vt1 = (vertex[1] - 1) * 2;
-			int vt2 = (vertex[1] - 1) * 2 + 1;
-			float vtX = texture[vn1];
-			float vtY = texture[vn2];
+			//int vt1 = (vertex[1] - 1) * 2;
+			//int vt2 = (vertex[1] - 1) * 2 + 1;
+			//float vtX = texture[vn1];
+			//float vtY = texture[vn2];
 
 			glNormal3f(vnX, vnY, vnZ);
-			glTexCoord2f(vtX,vtY);
+			//glTexCoord2f(vtX,vtY);
 			glVertex3f(vX, vY, vZ);
 		}
+		glEnd();
 	}
-	glEnd();
+	glPopMatrix();
+	glEndList();
+}
 
+//Renders using genarated display list
+void Model::draw()
+{
+	glCallList(listId);
+}
+
+//Renders the object in imediate mode
+void Model::render()
+{
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glScalef(transform.getScale().x, transform.getScale().y, transform.getScale().z);
+	glRotated(transform.getRotation().x, 1.0f, 0.0f, 0.0f);
+	glRotated(transform.getRotation().y, 0.0f, 1.0f, 0.0f);
+	glRotated(transform.getRotation().z, 0.0f, 0.0f, 1.0f);
+	glTranslatef(transform.getPosition().x, transform.getPosition().y, transform.getPosition().z);
+
+	for (auto& face : faces)
+	{
+	glBegin(GL_POLYGON);
+		for (auto& vertex : face)
+		{
+			//Vertex
+			int v1 = (vertex[0] - 1) * 3;
+			int v2 = (vertex[0] - 1) * 3 + 1;
+			int v3 = (vertex[0] - 1) * 3 + 2;
+			float vX = vertices[v1];
+			float vY = vertices[v2];
+			float vZ = vertices[v3];
+
+			//Normal
+			int vn1 = (vertex[2] - 1) * 3;
+			int vn2 = (vertex[2] - 1) * 3 + 1;
+			int vn3 = (vertex[2] - 1) * 3 + 2;
+			float vnX = normals[vn1];
+			float vnY = normals[vn2];
+			float vnZ = normals[vn3];
+
+			//int vt1 = (vertex[1] - 1) * 2;
+			//int vt2 = (vertex[1] - 1) * 2 + 1;
+			//float vtX = texture[vn1];
+			//float vtY = texture[vn2];
+
+			glNormal3f(vnX, vnY, vnZ);
+			//glTexCoord2f(vtX,vtY);
+			glVertex3f(vX, vY, vZ);
+		}
+	glEnd();
+	}
 	glPopMatrix();
 }
 
-void Model::draw(GLenum drawMethod)
-{
-	//glBegin(GL_QUADS);
-	//for (auto& face : faces)
-	//{
-	//	for (auto& vertex : face)
-	//	{
-	//		//Vertex
-	//		int v1 = (vertex[0] - 1) * 3;
-	//		int v2 = (vertex[0] - 1) * 3 + 1;
-	//		int v3 = (vertex[0] - 1) * 3 + 2;
-	//		float vX = vertices[v1];
-	//		float vY = vertices[v2];
-	//		float vZ = vertices[v3];
-
-	//		//Normal
-	//		int vn1 = (vertex[1] - 1) * 3;
-	//		int vn2 = (vertex[1] - 1) * 3 + 1;
-	//		int vn3 = (vertex[1] - 1) * 3 + 2;
-	//		float vnX = vertices[vn1];
-	//		float vnY = vertices[vn2];
-	//		float vnZ = vertices[vn3];
-
-	//		glVertex3f(vX, vY, vZ);
-	//		glNormal3f(vnX, vnY, vnZ);
-	//	}
-	//}
-	//glEnd();
-}
-
-
-
+//TODO
+//Load Textures. 
 void Model::loadTexture(const char* path)
 {
 

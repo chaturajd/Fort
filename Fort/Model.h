@@ -25,8 +25,7 @@ public:
 	void loadTexture(const char* path);
 	void genarateList();
 	void printDetails();
-	void draw(GLenum drawMethod);
-
+	void draw();
 
 private:
 };
