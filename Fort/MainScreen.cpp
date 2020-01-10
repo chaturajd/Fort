@@ -47,12 +47,15 @@ std::vector<std::vector<std::vector<int>>> faces = {
 	{ { 5, 1 }, { 6, 1 }, { 16, 1 }, { 15, 1 } }
 };
 
-Model *cube = new Model();;
+Model *cube;
 
 void MainScreen::initialize()
 {
+std::string filePath = "F:\\untitled1.obj";
+	ModelLoader loader;
 	std::cout << "Initializing MainScreen" << std::endl;
-	cube->initialize(verts, vertexNormals, faces);
+	//cube->initialize(verts, vertexNormals, faces);
+	cube = loader.loadModel(filePath);
 
 }
 
@@ -62,13 +65,13 @@ float angleZ = 0.0f;
 void MainScreen::render()
 {
 //	std::cout << "Rendering MainScreen" << std::endl;
-	glMatrixMode(GL_MODELVIEW);
+	/*glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
 		glRotatef(angleX, 1.0f, 0.0f, 0.0f);
 		glRotatef(angleY, .0f, 01.0f, 0.0f);
-		glRotatef(angleZ, .0f, 0.0f, 01.0f);
+		glRotatef(angleZ, .0f, 0.0f, 01.0f);*/
 		cube->render();
-	glPopMatrix();
+	//glPopMatrix();
 
 }
 
@@ -98,7 +101,8 @@ void MainScreen::keyDown(unsigned char key)
 
 //glNormalPointer(GL_FLOAT,0,normals);
 //
-//glDrawElements(GL_QUADS, 24, GL_UNSIGNED_BYTE, indexes);//
+//glDrawElements(GL_QUADS, 24, GL_UNSIGNED_BYTE, indexes);
+//
 //glDisableClientState(GL_VERTEX_ARRAY);
 //glDisableClientState(GL_NORMAL_ARRAY);
 

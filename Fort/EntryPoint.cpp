@@ -30,7 +30,7 @@ bool cameraR = false; //Camera Rotation
 Transform camera;
 
 //Scenes
-//Scene *ms = new MainScreen();
+Scene *ms = new MainScreen();
 Scene *menu = new Menu();
 
 
@@ -38,11 +38,11 @@ Scene *currentScene;
 
 void initScenes()
 {
-	//ms->initialize();
+	ms->initialize();
 	menu->initialize();
 
-	currentScene = menu;
-	//currentScene = ms;
+	//currentScene = menu;
+	currentScene = ms;
 
 //	cube->initialize(verts, vertexNormals, faces);
 }
@@ -64,6 +64,8 @@ void init()
 	glEnable(GL_LIGHTING);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_NORMALIZE);
+	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	glEnable(GL_TEXTURE_2D);
 
 	//glShadeModel(GL_SMOOTH);
 
@@ -98,7 +100,7 @@ void onKeyDown(unsigned char key, int x, int y)
 
 	if (key == 'p')
 	{
-		//currentScene = ms;
+		currentScene = ms;
 	}
 	if (key == 'o')
 	{

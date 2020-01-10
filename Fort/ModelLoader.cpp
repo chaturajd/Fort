@@ -1,5 +1,6 @@
 #include "ModelLoader.h"
 
+
 Model* ModelLoader::loadModel(std::string path)
 {
 	std::vector<std::string> files;
@@ -65,8 +66,8 @@ Model* ModelLoader::loadModel(std::string path)
 					while (std::getline(inputLine, parsed, ' '))
 					{
 						//Populate the texture coordinate array
-						//model->texture_cords.push_back(std::stof(parsed));
-					}
+						model->texture.push_back(std::stof(parsed));
+					}	
 				}
 			}
 		}

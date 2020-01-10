@@ -683,7 +683,7 @@ std::vector<std::vector<std::vector<int>>> lightHouse_faces =
 
 #pragma endregion
 
-Model *lightHouse = new Model();
+//Model *lightHouse = new Model();
 GLfloat green[] = { .0, 1.0, 0.0, 1.0 };
 GLfloat red[] =	  { 1.0, .0, 0.0, 1.0 };
 GLfloat white[] = { 1.0, 1.0, 1.0, 1.0 };
@@ -696,12 +696,13 @@ void Menu::initialize()
 	std::string filePath = "F:\\untitled2.obj";
 
 	ModelLoader loader;
+	
 	testModel = loader.loadModel(filePath);
-
 	std::cout << "Loading Model Loader Test" << std::endl;
+	testModel->loadTexture("");
 	testModel->printDetails();
-
-	lightHouse->initialize(lightHouse_vertices, lightHouse_vertexNormals, lightHouse_faces);
+	testModel->transform.setScale(.9f, .9f, .9f);
+	//lightHouse->initialize(lightHouse_vertices, lightHouse_vertexNormals, lightHouse_faces);
 
 }
 
@@ -709,22 +710,8 @@ void Menu::render()
 {
 
 	glShadeModel(GL_SMOOTH);
-	glMatrixMode(GL_MODELVIEW);
-	glPushMatrix();
-	glTranslatef(0.0f,-2.0f,0.0f);
-	//	glMaterialfv(GL_FRONT, GL_AMBIENT,green);
-	//	glMaterialfv(GL_FRONT, GL_DIFFUSE, green);
-	//	glMaterialfv(GL_FRONT, GL_SPECULAR, white);
-	//	glMaterialf(GL_FRONT, GL_SHININESS, 128.0);
 	//lightHouse->render();
 	testModel->render();
-
-	//std::cout<<"Size" << testModel->vertices.size();
-
-	//glBegin(GL_POINTS);
-	//glVertex3f(testModel->vertices[0], testModel->vertices[1], testModel->vertices[3]);
-	//glEnd();
-
 	glPopMatrix();
 }
 
@@ -732,3 +719,9 @@ void Menu::keyDown(unsigned char key)
 {
 
 }
+
+	
+	//	glMaterialfv(GL_FRONT, GL_AMBIENT,green);
+	//	glMaterialfv(GL_FRONT, GL_DIFFUSE, green);
+	//	glMaterialfv(GL_FRONT, GL_SPECULAR, white);
+	//	glMaterialf(GL_FRONT, GL_SHININESS, 128.0);
