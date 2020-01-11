@@ -19,12 +19,13 @@ KEYBOARD :
 
 
 //LIGHTS
-GLfloat light_diffuse[] = { 1.0, 0.0, 0.0, 1.0 };  /* Red diffuse light. */
+GLfloat light_diffuse[] = { .90, 0.90, 0.90, 1.0 };  /* White diffuse light. */
 GLfloat light1_diffuse[] = { 0.0, 0.50, 1.0, 1.0 };  /* Red diffuse light. */
 
-GLfloat light_position[] = { 3.0, 3.0, 3.0, 1.0 };  /* Infinite light location. */
+GLfloat light_position[] = { 2.0, 3.0, 0.0, 1.0 };  /* Infinite light location. */
 GLfloat light1_position[] = { 3.0, 3.0, 3.0, 1.0 };  /* Infinite light location. */
 
+GLfloat globalAmbient[] = { 0.90, 0.90, 0.90, 1.0 };
 //CAMERA
 bool cameraR = false; //Camera Rotation
 Transform camera;
@@ -49,8 +50,10 @@ void initScenes()
 
 void init()
 {
-	glClearColor(0.0, 0.0, 0.0, 1.0);
+	glClearColor(0.00, 0.15, 0.20, 1.0);
+	
 	glColor3f(1.0, 1.0, 1.0);
+
 
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
 	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
@@ -58,22 +61,28 @@ void init()
 	glLightfv(GL_LIGHT1, GL_DIFFUSE, light_diffuse);
 	glLightfv(GL_LIGHT1, GL_POSITION, light1_position);
 
+	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, globalAmbient);
+
 	glEnable(GL_LIGHT0);
-	glEnable(GL_LIGHT1);
+	//glEnable(GL_LIGHT1);
 
 	glEnable(GL_LIGHTING);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_NORMALIZE);
+	glEnable(GL_COLOR_MATERIAL);
+
 	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 	glEnable(GL_TEXTURE_2D);
 
 	//glShadeModel(GL_SMOOTH);
 
 	glMatrixMode(GL_PROJECTION);
-	glOrtho(-3, 3, -3, 3, -3, 3);
+	glLoadIdentity();
+	
+	glRotatef(-30.0f, 1.0f, 0.0f, .0);
+	glOrtho(-3, 3, -.5, 5.5, -3, 3);
 
 	initScenes();
-
 }
 
 void updateCamera(Transform t)

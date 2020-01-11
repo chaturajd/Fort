@@ -10,21 +10,20 @@ Model *m_lampPost;
 
 void Menu::initialize()
 {
-
-	std::string filePath = "F:\\untitled2.obj";
-	std::string hospital = "F:\\FortAssets\\exports\\Export_DutchHospital.obj";
-	std::string lampPost = "F:\\FortAssets\\exports\\Export_LampPost.obj";
+	//std::string hospital = "F:\\FortAssets\\exports\\Export_WatchTower.obj";
+	std::string hospital = "Assets\\Export_WatchTower.obj";
+	//std::string hospital = "F:\\FortAssets\\exports\\Export_DutchHospital.obj";
+	std::string lampPost = "Assets\\Export_LampPost.obj";
 
 
 	ModelLoader loader;
 	
 	m_hospital = loader.loadModel(hospital);
-	std::cout << "Loading Model Loader Test" << std::endl;
-
-	m_hospital->loadTexture("");					//TODO
+	//m_hospital->loadTexture("");					//TODO
 	m_hospital->printDetails();						//
-	m_hospital->transform.setScale(.1f, .1f, .1f);	//Set Scale of the Model 
+//	m_hospital->transform.setScale(.1f, .1f, .1f);	//Set Scale of the Model 
 	m_hospital->listId = glGenLists(1);				//Genarates Displat List ID
+	m_hospital->setDiffuse(.0f,0.8f,1.0f);
 	m_hospital->genarateList();						//Compiles the Display List
 
 
@@ -33,8 +32,6 @@ void Menu::initialize()
 	m_lampPost->transform.setPosition(m_lampPost->transform.getPosition().x, -.1f, .9f);
 	m_lampPost->listId = glGenLists(1);
 	m_lampPost->genarateList();
-
-	
 	//lightHouse->initialize(lightHouse_vertices, lightHouse_vertexNormals, lightHouse_faces);
 
 }
@@ -42,8 +39,16 @@ void Menu::initialize()
 void Menu::render()
 {
 	glShadeModel(GL_SMOOTH);
+
+	//glMatrixMode(GL_MODELVIEW);
+	//glLoadIdentity();
+	//glPushMatrix();
+	//glTranslatef(2.5, 5.5, 0.0);
+	//glutSolidSphere(.5,32,32);
+	//glPopMatrix();
+
 	m_hospital->draw();
-	m_lampPost->draw();
+	//m_lampPost->draw();
 }
 
 float sx=0, sy=0, sz=0;
